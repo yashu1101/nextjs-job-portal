@@ -69,7 +69,8 @@ export default function GetJobs({ jobs, savedJobIds, currentUser }) {
                 <div className="flex gap-2.5 mt-2 flex-wrap font-semibold ">
                   <div className="flex text-[12px] items-center  border px-1 py-0.5 rounded-[10px] ">
                     {" "}
-                    <IndianRupee size={14}></IndianRupee> {`${job?.jobSalary} LPA`}
+                    <IndianRupee size={14}></IndianRupee>{" "}
+                    {`${job?.jobSalary} LPA`}
                   </div>
                   <div className="flex text-[12px] items-center gap-1 border px-1 py-0.5 rounded-[10px] ">
                     {" "}

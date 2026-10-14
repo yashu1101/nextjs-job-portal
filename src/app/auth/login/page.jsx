@@ -1,14 +1,10 @@
 "use client";
 import { LoginAction } from "@/actions/auth.action";
-import GithubAuth from "@/components/buttons/GithubAuth";
+
 import GoogleAuth from "@/components/buttons/GoogleAuth";
 
 import { authClient } from "@/lib/auth-client";
-import { formImage } from "@/util/image-provider";
-import { faGithub, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Loader } from "lucide-react";
-import Image from "next/image";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -43,8 +39,10 @@ export default function Login() {
 
   return (
     <div className="flex w-full h-dvh items-center justify-center bg-background">
-      <div className="flex flex-col  w-full max-w-[500] px-5 md:px-12.5 py-5 md:py-[21px] bg-white">
-        <span className="sm:text-2xl text-2xl text-center my-6">Login</span>
+      <div className="flex flex-col  w-full max-w-[500] px-5 md:px-12.5 py-5 md:py-[21px] bg-white sm:h-auto h-full">
+        <span className="sm:text-2xl text-2xl text-center my-6 font-bold">
+          Login to Job<span className="text-blue-600">Finder</span>
+        </span>
         <div>
           <div
             className={`w-full text-center sm:text-[14px] text-[12px] ${state.status === true ? "text-green-500" : "text-red-500"}`}>
@@ -98,7 +96,6 @@ export default function Login() {
             </div>
             <div className="flex  w-full p-2.5 px-0 gap-2.5 items-center  rounded-[10px]">
               <GoogleAuth></GoogleAuth>
-              <GithubAuth></GithubAuth>
             </div>
             <span className="text-[12px] sm:text-[14px]">
               <Link href={"/auth/forgot-password"}>Forgot password ?</Link>{" "}

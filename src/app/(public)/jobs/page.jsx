@@ -77,9 +77,8 @@ export default async function Jobs({ searchParams }) {
   const totalJobs = plainJobs.length;
 
 
-
   return (
-    <div className="flex flex-col py-10 pb-5 relative">
+    <div className="flex flex-col sm:py-10 pb-5 relative">
       <div className="flex items-center max-w-125 w-full justify-between gap-2.5">
         <Searchbar
           padding={"sm:p-3.5 p-2.5 "}
@@ -90,8 +89,10 @@ export default async function Jobs({ searchParams }) {
       </div>
 
       <div className="mt-5 mb-5 sm:text-2xl flex flex-col text-[1.3rem] font-medium ">
-        <span className="font-bold capitalize " >Find your dream job</span>
-        <span className="text-[14px] text-gray-500" >Total {totalJobs} jobs are available</span>
+        <span className="font-bold capitalize ">Find your dream job</span>
+        <span className="text-[14px] text-gray-500">
+          Total {totalJobs} jobs are available
+        </span>
       </div>
 
       <div className="flex flex-col gap-2.5 w-full max-w-125 ">

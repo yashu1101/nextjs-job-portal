@@ -62,7 +62,7 @@ export default function FilterBar() {
     },
     {
       title: "Web Development",
-      value: "web-developemnt",
+      value: "web-development",
     },
     {
       title: "App Development",
@@ -89,7 +89,7 @@ export default function FilterBar() {
       value: "cyber-security",
     },
   ];
-  // Job Category
+  // Job Salaries
   const jobSalaries = [
     {
       title: "Any",

@@ -2,22 +2,23 @@
 const nextConfig = {
   /* config options here */
   reactCompiler: true,
+  cacheComponents: true,
 
 
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', 
+        hostname: '**',
       },
       {
         protocol: 'http',
-        hostname: '**', 
+        hostname: '**',
       },
     ],
   },
 
-     allowedDevOrigins: ['10.241.85.26'],
+  allowedDevOrigins: ['10.241.85.26'],
 };
 
 export default nextConfig;

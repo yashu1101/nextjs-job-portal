@@ -5,10 +5,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { useActionState, useEffect } from "react";
 import { Loader } from "lucide-react";
-import Image from "next/image";
-import { formImage } from "@/util/image-provider";
 import GoogleAuth from "@/components/buttons/GoogleAuth";
-import GithubAuth from "@/components/buttons/GithubAuth";
 
 export default function Signup() {
   const router = useRouter();
@@ -36,8 +33,8 @@ export default function Signup() {
 
   return (
     <div className="flex w-full h-dvh items-center justify-center bg-background">
-      <div className="flex flex-col  w-full max-w-[500] px-5 md:px-12.5  py-4 bg-white">
-        <span className="sm:text-2xl text-2xl text-center my-6">
+      <div className="flex flex-col  w-full max-w-[500] px-5 md:px-12.5  py-4 bg-white sm:h-auto h-full">
+        <span className="sm:text-2xl text-2xl text-center my-6 font-bold">
           Create an account
         </span>
         <div>
@@ -140,7 +137,6 @@ export default function Signup() {
             </div>
             <div className="flex  w-full p-2.5 px-0 gap-2.5 items-center  rounded-[10px]">
               <GoogleAuth></GoogleAuth>
-              <GithubAuth></GithubAuth>
             </div>
             <span className="text-[12px] sm:text-[14px]">
               Alraedy have acoount ?{" "}
