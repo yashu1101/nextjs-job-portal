@@ -43,7 +43,7 @@ export default function Login() {
         <span className="sm:text-2xl text-2xl text-center my-6 font-bold">
           Login to Job<span className="text-blue-600">Finder</span>
         </span>
-        <div>
+        <div className="flex flex-col items-center">
           <div
             className={`w-full text-center sm:text-[14px] text-[12px] ${state.status === true ? "text-green-500" : "text-red-500"}`}>
             <span>{state.message}</span>
@@ -91,22 +91,25 @@ export default function Login() {
                 )}
               </button>
             </div>
-            <div className="flex items-center">
-              <span>OR</span>
-            </div>
-            <div className="flex  w-full p-2.5 px-0 gap-2.5 items-center  rounded-[10px]">
-              <GoogleAuth></GoogleAuth>
-            </div>
-            <span className="text-[12px] sm:text-[14px]">
-              <Link href={"/auth/forgot-password"}>Forgot password ?</Link>{" "}
+          </form>
+
+          <div className="flex items-center justify-center w-full p-4">
+            <span>OR</span>
+          </div>
+          <div className="flex  w-full  px-0 gap-2.5 items-center  rounded-[10px]">
+            <GoogleAuth></GoogleAuth>
+          </div>
+          <div className="flex w-full flex-col py-2.5 " >
+            <span className="text-[12px] sm:text-[14px] text-blue-600 font-medium">
+              <Link href={"/auth/reset-password"}>Forgot password ?</Link>{" "}
             </span>
-            <span className="text-[12px] sm:text-[14px]">
+            <span className="text-[12px] sm:text-[14px] font-medium">
               Don't have acoount ?{" "}
               <Link className="text-violet-800" href={"/auth/signup"}>
                 Signup
               </Link>{" "}
             </span>
-          </form>
+          </div>
         </div>
       </div>
     </div>
