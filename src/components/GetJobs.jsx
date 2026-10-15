@@ -1,4 +1,5 @@
 "use client";
+
 import { SaveJobAction } from "@/actions/job.action";
 import {
   Bookmark,
@@ -33,6 +34,7 @@ export default function GetJobs({ jobs, savedJobIds, currentUser }) {
   }
   return (
     <>
+    
       {jobs.map((job, index) => {
         const isSaved = savedJobs.includes(job._id.toString());
 
