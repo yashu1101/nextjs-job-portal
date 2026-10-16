@@ -32,7 +32,7 @@ export default async function ViewJob({ params }) {
   }
 
   return (
-    <div className="flex flex-col p-2.5 relative capitalize bg-white text-[12px] sm:text-[14px]   ">
+    <div className="flex flex-col p-2.5 pb-15 relative capitalize bg-white text-[12px] sm:text-[14px]   ">
       <div className="flex items-center gap-1.5 p-2.5 border-b border-outlined ">
         <div className="bg-white w-[40px] h-[40px] rounded-[5px] relative overflow-hidden">
           <Image
