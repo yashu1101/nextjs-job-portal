@@ -22,7 +22,7 @@ export default async function RecruiterProfilePage() {
 
   // CHECK ROLE
 
-  const recruiter =  RoleChecker(user,"recruiter");
+  const recruiter = RoleChecker(user, "recruiter");
   if (!recruiter) {
     return <AccessDenied></AccessDenied>;
   }
@@ -35,7 +35,7 @@ export default async function RecruiterProfilePage() {
 
   return (
     <div className="w-full py-5">
-      <div className="capitalize">
+      <div className="capitalize text-[12px] sm:text-[14px] bg-white p-2.5 pb-15 ">
         <div className="flex flex-col bg-gradient p-3.5 px-5 mb-5 rounded-[10px] gap-3.5 w-full max-w-125 relative ">
           {/* edit profile button */}
 

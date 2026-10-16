@@ -27,7 +27,7 @@ export default function RecruiterProfileForm({ profile, mode = "create" }) {
     }
   }, [state?.status]);
   return (
-    <div className="flex flex-col  w-full max-w-[500] bg-white px-5 ">
+    <div className="flex flex-col  w-full max-w-[500] bg-white px-5 pb-15 ">
       <span className="sm:text-2xl text-2xl text-center font-semibold my-6">
         {isUpdate ? "Update profile" : "Create profile"}
       </span>

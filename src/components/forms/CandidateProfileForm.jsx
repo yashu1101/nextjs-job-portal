@@ -32,7 +32,7 @@ export default function CandidateProfileForm({ profile, mode = "create" }) {
   }, [state?.status]);
 
   return (
-    <div className="flex flex-col  w-full max-w-[500] px-5 bg-white">
+    <div className="flex flex-col  w-full max-w-[500] px-5 bg-white pb-15">
       <span className="sm:text-2xl text-2xl text-center my-6">
         {isUpdate ? "Update Profile" : "Create Profile"}
       </span>
