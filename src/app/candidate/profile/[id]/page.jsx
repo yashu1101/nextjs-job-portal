@@ -62,8 +62,8 @@ export default async function CandidateProfilePage({ params }) {
               <span>{profile?.user?.name}</span>
             </div>
           </div>
-          {(session.user.role === "candidate" ||
-            session.user.role === "recruiter") && (
+          {(user.role === "candidate" ||
+            user.role === "recruiter") && (
             <div className="flex flex-col gap-1">
               <span className="flex items-center gap-2.5 text-black sm:text-[14px] text-[12px]">
                 <Phone size={16}></Phone> {profile?.phone}
