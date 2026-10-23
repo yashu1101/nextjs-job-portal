@@ -1,9 +1,6 @@
-import googleLogo from '@/assets/companyLogo/google.png'
-import metaLogo from '@/assets/companyLogo/meta.png'
-import amazonLogo from '@/assets/companyLogo/amazon.webp'
-import flipkartLogo from '@/assets/companyLogo/flipkart.svg'
 
 import sidebarPlaceholder from '@/assets/sidebar-placeholder.png'
-import formImage from '@/assets/formImage/form-image.svg'
+import joblogoPlaceholder from '@/assets/joblogo-placeholder.webp'
 
-export { googleLogo, metaLogo, amazonLogo, flipkartLogo, sidebarPlaceholder, formImage }
+
+export { sidebarPlaceholder, joblogoPlaceholder }

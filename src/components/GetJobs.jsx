@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { joblogoPlaceholder } from "@/util/image-provider";
 import { useState } from "react";
 
 export default function GetJobs({ jobs, savedJobIds, currentUser }) {
@@ -34,7 +35,6 @@ export default function GetJobs({ jobs, savedJobIds, currentUser }) {
   }
   return (
     <>
-    
       {jobs.map((job, index) => {
         const isSaved = savedJobs.includes(job._id.toString());
 
@@ -51,12 +51,10 @@ export default function GetJobs({ jobs, savedJobIds, currentUser }) {
             <Link href={`/jobs/view/${job?._id} `} className="capitalize">
               <div className=" flex flex-col bg-gradient p-3  gap-2 rounded-[10px] ">
                 <div className="flex items-center gap-1.5">
-                  <div className="bg-white w-[40px] h-[40px] rounded-[5px] relative overflow-hidden">
+                  <div className="bg-white w-[40px] h-[40px] rounded-[10px] relative overflow-hidden">
                     <Image
-                      src={job?.company?.companyLogo?.url}
+                      src={job?.company?.companyLogo?.url || joblogoPlaceholder}
                       fill
-                      placeholder="blur"
-                      blurDataURL={job?.company?.companyLogo?.url}
                       alt="logo"
                     />
                   </div>

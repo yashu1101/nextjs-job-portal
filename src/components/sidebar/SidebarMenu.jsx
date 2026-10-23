@@ -1,3 +1,4 @@
+"use client";
 import {
   Bookmark,
   BriefcaseBusiness,
@@ -8,16 +9,18 @@ import {
   Home,
   Info,
   LayoutDashboard,
-  Loader,
   User,
-  UsersRound,
 } from "lucide-react";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import Logout from "./Logout";
+import { useContext } from "react";
+import { ToggleSidebarContext } from "@/context/ToggleSidebarContext";
 export default function ({ user }) {
   const pathname = usePathname();
+  const { isSidebarOpen, setIsSidebarOpen } = useContext(ToggleSidebarContext);
+
   const sidebarItems = [
     {
       name: "Home",
@@ -47,7 +50,7 @@ export default function ({ user }) {
       name: "Jobs",
       href: "/jobs",
       icon: <BriefcaseBusiness size={17}></BriefcaseBusiness>,
-      role: ["candidate", "public", "admin"],
+      role: ["candidate", "public"],
     },
     {
       name: "Jobs",
@@ -74,22 +77,11 @@ export default function ({ user }) {
       icon: <FileText size={17}></FileText>,
       role: ["recruiter"],
     },
-    // {
-    //   name: "Resume Build",
-    //   href: "/resume-build",
-    //   icon: <FileUser size={17}></FileUser>,
-    //   role: ["candidate"],
-    // },
+
     {
       name: "Candidates",
       href: "/admin/candidates",
       icon: <User size={17}></User>,
-      role: ["admin"],
-    },
-    {
-      name: "Recruiters",
-      href: "/admin/recruiters",
-      icon: <UsersRound size={17}></UsersRound>,
       role: ["admin"],
     },
     {
@@ -98,23 +90,24 @@ export default function ({ user }) {
       icon: <Building size={17}></Building>,
       role: ["admin"],
     },
+
     {
       name: "Help & Support",
       href: "/help",
       icon: <CircleQuestionMark size={17}></CircleQuestionMark>,
-      role: ["admin", "candidate", "recruiter", "public"],
+      role: ["candidate", "recruiter", "public"],
     },
     {
       name: "Contact Us",
       href: "/contact",
       icon: <Headset size={17}></Headset>,
-      role: ["admin", "candidate", "recruiter", "public"],
+      role: ["candidate", "recruiter", "public"],
     },
     {
       name: "About Us",
       href: "/about",
       icon: <Info size={17}></Info>,
-      role: ["admin", "candidate", "recruiter", "public"],
+      role: ["candidate", "recruiter", "public"],
     },
   ];
   const role = user?.role || "public";
@@ -124,7 +117,13 @@ export default function ({ user }) {
       <ul className="flex flex-col  w-full">
         {filteredItems?.map((item) => {
           return (
-            <li key={item.href}>
+            <li
+              key={item.href}
+              onClick={() => {
+                if (window.innerWidth < 768) {
+                  setIsSidebarOpen(false);
+                }
+              }}>
               <Link
                 href={item.href}
                 className={`flex items-center gap-3.5 list-none  w-full  rounded-[10px]  p-2.5 z-50 transition-all duration-300 ${pathname == item.href && "bg-gradient"} ${item.name === "Logout" && "text-red-500 font-semibold"} `}>

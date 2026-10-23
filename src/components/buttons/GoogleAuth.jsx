@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function GoogleAuth() {
   const handleGoogleLogin = async () => {
+    console.log('GOOGLE AUTH START')
     await authClient.signIn.social({
       provider: "google",
       callbackURL: "/auth/auth-callback",

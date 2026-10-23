@@ -1,8 +1,10 @@
 import { betterAuth } from "better-auth";
+// import { admin } from "better-auth/plugins";
 import { nextCookies } from "better-auth/next-js";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import SendMail from "./send-mail";
+import DeleteUserData from "./delete-user-data";
 
 const client = new MongoClient(process.env.MONGO_URL);
 const db = client.db();
@@ -17,18 +19,18 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
         requireEmailVerification: true,
-         // PASSWORD RESET LINK 
-    sendResetPassword: async ({ user, url, token }, request) => {
-        await SendMail({
-            to: user.email,
-            subject: "Reset your password",
-            text: `Click the link to reset your password: ${url}`,
-        });
-    },
-    onPasswordReset: async ({ user }, request) => {
-        // your logic here
-        console.log(`Password for user ${user.email} has been reset.`);
-    },
+        // PASSWORD RESET LINK 
+        sendResetPassword: async ({ user, url, token }, request) => {
+            await SendMail({
+                to: user.email,
+                subject: "Reset your password",
+                text: `Click the link to reset your password: ${url}`,
+            });
+        },
+        onPasswordReset: async ({ user }, request) => {
+            // your logic here
+            console.log(`Password for user ${user.email} has been reset.`);
+        },
 
     },
 
@@ -44,7 +46,7 @@ export const auth = betterAuth({
         },
 
     },
-   
+
     // SOCIAL PROVIDER (GOOGLE OAuth) 
     socialProviders: {
         google: {
@@ -65,10 +67,16 @@ export const auth = betterAuth({
         },
 
         deleteUser: {
-            enabled: true
+            enabled: true,
+            beforeDelete: async (user) => {
+
+                await DeleteUserData(user)
+
+            },
         }
     },
     plugins: [
+        // admin(),
         nextCookies()
     ],
 

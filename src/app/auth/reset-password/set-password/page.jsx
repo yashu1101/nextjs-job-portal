@@ -1,20 +1,46 @@
-"use client";;
+"use client";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 export default function SetPassword() {
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
+  const router = useRouter();
 
   const handleResetPassword = async () => {
-    const token = new URLSearchParams(window.location.search).get("token");
+    setErrorMessage("");
 
-    if (!token) {
-      // Handle the error
+    try {
+      setIsPending(true);
+
+      const token = new URLSearchParams(window.location.search).get("token");
+
+      if (!token) {
+        setErrorMessage("Invalid or expired reset link.");
+        return;
+      }
+
+      const { data, error } = await authClient.resetPassword({
+        newPassword: password,
+        token,
+      });
+
+      if (error) {
+        setErrorMessage("Failed to reset password. Try again.");
+        return;
+      }
+
+      if (data?.status) {
+        router.push("/auth/login");
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsPending(false);
     }
-    const { data, error } = await authClient.resetPassword({
-      newPassword: password, 
-      token, 
-    });
   };
 
   return (
@@ -37,9 +63,14 @@ export default function SetPassword() {
 
           <button
             onClick={handleResetPassword}
-            className="bg-blue-600 rounded-[10px] p-2.5 text-white font-bold hover:bg-blue-700 mt-4 transition-all duration-300 ease-in">
-            Reset Password
+            disabled={isPending}
+            className={`${isPending ? "bg-orange-500 pointer-events-none" : "bg-blue-600"}  rounded-[10px] p-2.5 text-white font-bold hover:bg-blue-700 mt-4 transition-all duration-300 ease-in`}>
+            {isPending ? "Reseting password..." : "Reset Password"}
           </button>
+
+          <span className="text-red-500 font-medium py-2.5">
+            {errorMessage}
+          </span>
         </div>
       </div>
     </div>

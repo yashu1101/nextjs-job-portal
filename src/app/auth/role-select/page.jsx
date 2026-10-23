@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 
 export default function RoleSelect() {
   const [role, setRole] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const router = useRouter();
 
-//   CHECK ALREADY LOGGED IN USER 
+  //   CHECK ALREADY LOGGED IN USER
 
-useEffect(() => {
+  useEffect(() => {
     const checkRole = async () => {
       const { data: session, error } = await authClient.getSession();
 
@@ -29,8 +31,6 @@ useEffect(() => {
         router.replace("/recruiter/dashboard");
         return;
       }
-
-    
     };
 
     checkRole();
@@ -39,35 +39,45 @@ useEffect(() => {
   //   UPDATE ROLE AFTER SIGNUP
 
   const updateRole = async () => {
-    if (!role) return;
+    setErrorMessage("");
+    try {
+      setIsPending(true);
+      if (!role) return;
 
-    const { data, error } = await authClient.updateUser({
-      role,
-    });
+      const { data, error } = await authClient.updateUser({
+        role,
+      });
 
-    // Pehle error check
-    if (error) {
-      console.log("Role update error:", error);
-      return;
-    }
+      // error check
+      if (error) {
+        console.log("Role update error:", error);
+        setErrorMessage(error.message);
+        return;
+      }
 
-    console.log("Role updated:", data);
+      console.log("Role updated:", data);
 
-    // get session
-    const { data: session, error: sessionError } =
-      await authClient.getSession();
+      // get session
+      const { data: session, error: sessionError } =
+        await authClient.getSession();
 
-    if (sessionError) {
-      console.log("Session error:", sessionError);
-      return;
-    }
+      if (sessionError) {
+        console.log("Session error:", sessionError);
+        setErrorMessage(error.message);
+        return;
+      }
 
-    if (session?.user?.role === "candidate") {
-      router.push("/candidate/dashboard");
-    } else if (session?.user?.role === "recruiter") {
-      router.push("/recruiter/dashboard");
-    } else {
-      router.push("/auth/login");
+      if (session?.user?.role === "candidate") {
+        router.push("/candidate/dashboard");
+      } else if (session?.user?.role === "recruiter") {
+        router.push("/recruiter/dashboard");
+      } else {
+        router.push("/auth/login");
+      }
+    } catch (error) {
+      setErrorMessage(error.message || "Something went wrong");
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -110,10 +120,12 @@ useEffect(() => {
         {role && (
           <button
             onClick={updateRole}
-            className="m-5 w-full p-2.5 bg-violet-800 text-white font-semibold rounded-[10px] text-[14px]">
-            Countinue{" "}
+            className={`m-5 w-full p-2.5 ${isPending ? "bg-orange-500" : "bg-violet-800"}  text-white font-semibold rounded-[10px] text-[14px] transition-all ease-in duration-300`}>
+            {isPending ? "Updating Role.." : "Countinue"}
           </button>
         )}
+
+        <span className="text-red-500">{errorMessage}</span>
       </div>
     </div>
   );

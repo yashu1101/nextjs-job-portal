@@ -9,6 +9,8 @@ export async function CurrentUser() {
             headers: headerList,
         });
 
+      
+
         if (!session?.user) return null;
 
         return session.user;

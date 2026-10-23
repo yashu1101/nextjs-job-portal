@@ -8,6 +8,7 @@ import { RecruiterProfile } from "@/models/recruiter.profile.model";
 import Link from "next/link";
 import { CurrentUser, RoleChecker } from "@/lib/current-user";
 import AccessDenied from "@/components/AccessDenied";
+import DeleteUserButton from "@/components/buttons/DeleteUserButton";
 
 export default async function RecruiterProfilePage() {
   // CONNECT DB
@@ -100,6 +101,7 @@ export default async function RecruiterProfilePage() {
             <span className="text-[14px]">{profile?.companyDescription}</span>
           </div>
         </div>
+        <DeleteUserButton></DeleteUserButton>
       </div>
     </div>
   );

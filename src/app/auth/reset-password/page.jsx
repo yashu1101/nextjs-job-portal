@@ -4,25 +4,27 @@ import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 export default function ResetPassword() {
-
   const [email, setEmail] = useState("");
   const [isLinkSent, setIsLinkSent] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
   // RESET PASSWORD FUNCTION
 
   const sendResetPasswordLink = async () => {
     try {
-    //   console.log("reset password button clicked");
+      setIsPending(true);
       const { data, error } = await authClient.requestPasswordReset({
         email,
         redirectTo: "/auth/reset-password/set-password",
       });
 
       if (data?.status) {
-        setIsLinkSent(true)
+        setIsLinkSent(true);
       }
     } catch (error) {
       console.log(error.message || "reset password failed.");
+    } finally {
+      setIsPending(false);
     }
   };
 
@@ -45,10 +47,14 @@ export default function ResetPassword() {
           />
 
           <button
-            disabled={isLinkSent}
+            disabled={isLinkSent || isPending}
             onClick={sendResetPasswordLink}
-            className={`${isLinkSent ? "bg-green-500 pointer-events-none " : "bg-blue-600"}  rounded-[10px] p-2.5 text-white font-bold hover:bg-blue-700 mt-4 transition-all duration-300 ease-in`}>
-            {isLinkSent ? "Reset link sent successfully." : "Send Reset Link"}
+            className={`${isLinkSent ? "bg-green-500 pointer-events-none " : isPending ? "bg-orange-500 pointer-events-none " : "bg-blue-600"}  rounded-[10px] p-2.5 text-white font-bold hover:bg-blue-700 mt-4 transition-all duration-300 ease-in`}>
+            {isLinkSent
+              ? "Reset link sent successfully."
+              : isPending
+                ? "Sending Link.."
+                : "Send Reset Link"}
           </button>
         </div>
 
@@ -56,9 +62,11 @@ export default function ResetPassword() {
 
         {isLinkSent && (
           <div className="absolute left-0 top-0 w-full h-full flex flex-col items-center justify-center text-white font-semibold  bg-green-500 p-5 gap-5">
-            <CheckCircle size={40} ></CheckCircle>
-            <span>Password reset link sent successfully to your email address.</span>
-            <span className="text-[14px] " >Check your inbox</span>
+            <CheckCircle size={40}></CheckCircle>
+            <span>
+              Password reset link sent successfully to your email address.
+            </span>
+            <span className="text-[14px] ">Check your inbox</span>
           </div>
         )}
       </div>

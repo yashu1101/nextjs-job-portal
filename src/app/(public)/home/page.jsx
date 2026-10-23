@@ -1,4 +1,4 @@
-"use client";
+
 import Searchbar from "@/components/Searchbar";
 import TopCompanyCard from "@/components/TopCompanyCard";
 import { JobCategory } from "@/components/JobCategory";

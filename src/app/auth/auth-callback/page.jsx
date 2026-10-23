@@ -2,13 +2,16 @@ import { CurrentUser } from "@/lib/current-user";
 import { redirect } from "next/navigation";
 
 export default async function AuthCallback() {
+
   const user = await CurrentUser();
+
+
 
   if (!user) {
     redirect("/auth/login");
   }
 
-  if (!user.role) {
+  if (!user.role || user.role ==='user' ) {
     redirect("/auth/role-select");
   }
 

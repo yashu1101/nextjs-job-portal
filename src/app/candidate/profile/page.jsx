@@ -7,6 +7,7 @@ import connectDB from "@/lib/db";
 import Link from "next/link";
 import AccessDenied from "@/components/AccessDenied";
 import { CurrentUser, RoleChecker } from "@/lib/current-user";
+import DeleteUserButton from "@/components/buttons/DeleteUserButton";
 
 export default async function CandidateProfilePage() {
   // CONNECT DB
@@ -18,6 +19,8 @@ export default async function CandidateProfilePage() {
   if (!user) {
     redirect("/auth/login");
   }
+
+ 
 
   // CHECK ROLE
 
@@ -123,6 +126,7 @@ export default async function CandidateProfilePage() {
               <span>{profile?.city}</span>
             </div>
           </div>
+          <DeleteUserButton></DeleteUserButton>
         </div>
       </div>
     </div>
