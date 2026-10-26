@@ -9,6 +9,7 @@ import {
   Home,
   Info,
   LayoutDashboard,
+  Settings,
   User,
 } from "lucide-react";
 import Link from "next/link";
@@ -108,6 +109,18 @@ export default function ({ user }) {
       href: "/about",
       icon: <Info size={17}></Info>,
       role: ["candidate", "recruiter", "public"],
+    },
+    {
+      name: "Settings",
+      href: "/candidate/settings",
+      icon: <Settings size={17}></Settings>,
+      role: ["candidate"],
+    },
+    {
+      name: "Settings",
+      href: "/recruiter/settings",
+      icon: <Settings size={17}></Settings>,
+      role: ["recruiter"],
     },
   ];
   const role = user?.role || "public";

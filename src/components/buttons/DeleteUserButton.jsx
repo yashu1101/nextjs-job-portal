@@ -1,5 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
+import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -71,7 +72,6 @@ export default function DeleteUserButton() {
     }
   };
 
-
   return (
     <div className="relative normal-case">
       {isPannelShow && (
@@ -114,9 +114,9 @@ export default function DeleteUserButton() {
         </div>
       )}
       <button
-        className="p-2.5 bg-red-500 rounded-[10px] text-white font-semibold my-2.5"
+        
         onClick={() => setIsPannelShow(!isPannelShow)}>
-        Delete Account
+        <ChevronRight></ChevronRight>
       </button>
     </div>
   );

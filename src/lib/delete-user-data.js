@@ -32,11 +32,14 @@ export default async function DeleteUserData(user) {
             // DELETE RESUME DATA 
 
             const resume = await Resume.findOne({ user: user.id })
-            if (resume.resume.publicId) {
-                await deleteFromCloudinary(resume.resume.publicId)
-            }
+            if (resume) {
 
-            await Resume.deleteMany({ user: user.id })
+                if (resume.resume.publicId) {
+                    await deleteFromCloudinary(resume.resume.publicId)
+                }
+
+                await Resume.deleteMany({ user: user.id })
+            }
 
             // DELETE SAVED JOBS 
 

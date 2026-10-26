@@ -3,10 +3,11 @@ import Link from "next/link";
 import Searchbar from "../Searchbar";
 import { Eye, Trash } from "lucide-react";
 import { date } from "@/util/date-formator";
+import AdminDeleteUserButton from "../buttons/AdminDeleteUserButton";
 
 export default function RecruitersTable({ companies }) {
+  console.log(companies);
 
-  
   return (
     <div className="flex flex-col gap-2.5 py-5">
       {companies?.length === 0 ? (
@@ -44,23 +45,25 @@ export default function RecruitersTable({ companies }) {
                       key={index}
                       className="border-b border-[#80808040] text-nowrap ">
                       <td className="p-2.5 text-blue-600  ">
-                        <Link href={`/candidate/profile/${company?._id}`}>
-                          {`${company?._id.slice(0, 4)}...${company?._id.slice(-4)}`}
+                        <Link href={`/recruiter/profile/${company?.user?._id}`}>
+                          {`${company?._id.slice(0, 4)}...${company?.user?._id.slice(-4)}`}
                         </Link>
                       </td>
-                      <td className="p-2.5 capitalize ">{company?.name}</td>
-                      <td className="p-2.5   ">{company?.email}</td>
-                      <td className="p-2.5  ">{date(company?.createdAt)}</td>
-                      <td className="p-2.5  ">
+                      <td className="p-2.5 capitalize ">
+                        {company?.companyName}
+                      </td>
+                      <td className="p-2.5 capitalize  ">
+                        {company?.companyType}
+                      </td>
+                      <td className="p-2.5 capitalize  ">
+                        {company?.companyLocation}
+                      </td>
+                      <td className="p-2.5 capitalize ">
+                        {date(company?.user?.createdAt)}
+                      </td>
+                      <td className="p-2.5 capitalize ">
                         <span className="flex items-center gap-2.5">
-                          <Link
-                            href={`#`}
-                            className="text-white bg-red-500 hover:bg-red-600 rounded-[10px] p-2 py-1.5 font-semibold">
-                            <span className="flex items-center gap-1">
-                              <Trash size={15}></Trash>
-                              <span> Delete</span>
-                            </span>
-                          </Link>
+                         <AdminDeleteUserButton userId={company?.user?._id}></AdminDeleteUserButton>
                         </span>
                       </td>
                     </tr>

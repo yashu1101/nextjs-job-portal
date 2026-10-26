@@ -1,7 +1,8 @@
 "use client";
-import { authClient } from "@/lib/auth-client";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { DeleteUserByAdmin } from "@/actions/admin.action";
 
 export default function AdminDeleteUserButton({ userId }) {
   const [isPannelShow, setIsPannelShow] = useState(false);
@@ -14,13 +15,8 @@ export default function AdminDeleteUserButton({ userId }) {
     setErrorMessage("");
     try {
       setIsPending(true);
-      const { error } = await authClient.admin.removeUser({
-        userId,
-      });
 
-      if (error) {
-        setErrorMessage(error.message);
-      }
+      await DeleteUserByAdmin(userId);
 
       setIsPannelShow(false);
     } catch (error) {
@@ -30,6 +26,20 @@ export default function AdminDeleteUserButton({ userId }) {
     }
   };
 
+  // const deleteUserData = async () => {
+  //   try {
+  //     const targetUser = await User.findOne({ _id: userId });
+  //   } catch (error) {}
+  // };
+
+  // const initialState = {
+  //   status: false,
+  //   message: "",
+  // };
+  // const [state, dispatchAction, isPending] = useActionState(
+  //   DeleteUserByAdmin,
+  //   initialState,
+  // );
   return (
     <div className="relative normal-case">
       {isPannelShow && (

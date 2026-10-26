@@ -8,6 +8,7 @@ import Link from "next/link";
 import AccessDenied from "@/components/AccessDenied";
 import { CurrentUser, RoleChecker } from "@/lib/current-user";
 import DeleteUserButton from "@/components/buttons/DeleteUserButton";
+import { dummyAvatar } from "@/util/image-provider";
 
 export default async function CandidateProfilePage() {
   // CONNECT DB
@@ -19,8 +20,6 @@ export default async function CandidateProfilePage() {
   if (!user) {
     redirect("/auth/login");
   }
-
- 
 
   // CHECK ROLE
 
@@ -42,22 +41,11 @@ export default async function CandidateProfilePage() {
     <div className="w-full py-5">
       <div className="capitalize text-[12px] sm:text-[14px] bg-white p-2.5 pb-15">
         <div className="flex flex-col bg-gradient p-3.5 px-5 mb-5 rounded-[10px] gap-3.5 w-full max-w-125 relative ">
-          {/* edit profile button */}
-
-          {candidate && (
-            <Link
-              href="/candidate/profile/update"
-              className="absolute top-3.5 right-2.5">
-              <SquarePen size={20} className="text-black"></SquarePen>
-            </Link>
-          )}
-
           <div className="flex sm:flex-row flex-col items-center gap-3.5">
             <div className="rounded-[100] sm:w-20 sm:h-20 w-12.5 h-12.5 relative  ">
               <Image
-                src={profile?.profilePhoto?.url}
+                src={profile?.profilePhoto?.url || dummyAvatar}
                 fill
-              
                 alt="avtar"
                 className="rounded-[100]"
               />
@@ -126,7 +114,7 @@ export default async function CandidateProfilePage() {
               <span>{profile?.city}</span>
             </div>
           </div>
-          <DeleteUserButton></DeleteUserButton>
+         
         </div>
       </div>
     </div>

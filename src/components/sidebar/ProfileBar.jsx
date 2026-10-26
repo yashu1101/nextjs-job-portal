@@ -1,5 +1,6 @@
 "use client";
 import { GetProfile } from "@/actions/profile.action";
+import { dummyAvatar } from "@/util/image-provider";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,10 +45,10 @@ export default function ProfileBar({ user }) {
     <div className="w-full py-7.5  mb-5 ">
       <Link href={profileRoute}>
         <div
-          className={`flex items-center w-full gap-2.5 p-2.5 border border-outlined rounded-[10px] ${pathname === "/profile" ? "bg-gradient" : ""} `}>
+          className={`flex items-center w-full gap-2.5  border border-outlined rounded-[10px] ${pathname === "/profile" ? "bg-gradient" : ""} `}>
          <div className="flex items-center w-full gap-2.5 p-2.5">
            <Image
-            src={profilePhoto || "/profile-photo.png"}
+            src={profilePhoto || dummyAvatar}
             width={30}
             height={30}
             alt="avtar"

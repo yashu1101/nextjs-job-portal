@@ -81,3 +81,5 @@ export const auth = betterAuth({
     ],
 
 });
+
+export {db}
