@@ -1,0 +1,66 @@
+import { Mail, Phone, SquarePen, UserCog2Icon } from "lucide-react";
+import Image from "next/image";
+import { redirect } from "next/navigation";
+import { CandidateProfile } from "@/models/candidate.profile.model";
+import { User } from "@/models/user.model";
+import connectDB from "@/lib/db";
+import Link from "next/link";
+import AccessDenied from "@/components/AccessDenied";
+import { CurrentUser, RoleChecker } from "@/lib/current-user";
+import DeleteUserButton from "@/components/buttons/DeleteUserButton";
+import { dummyAvatar } from "@/util/image-provider";
+
+export default async function AdminProfilePage() {
+  // CONNECT DB
+  await connectDB();
+
+  // GET CURRENT USER
+
+  const user = await CurrentUser();
+  if (!user) {
+    redirect("/auth/login");
+  }
+
+  // CHECK ROLE
+
+  const admin = RoleChecker(user, "admin");
+  if (!admin) {
+    return <AccessDenied></AccessDenied>;
+  }
+
+  return (
+    <div className="w-full py-5">
+      <div className="capitalize text-[12px] sm:text-[14px] bg-white p-2.5 pb-15">
+        <div className="flex flex-col bg-gradient p-3.5 px-5 mb-5 rounded-[10px] gap-3.5 w-full max-w-125 relative ">
+          <div className="flex sm:flex-row flex-col items-center gap-3.5">
+            <div className="rounded-[100] sm:w-20 sm:h-20 w-12.5 h-12.5 relative  ">
+              <Image
+                src={user?.profilePhoto?.url || dummyAvatar}
+                fill
+                alt="avtar"
+                className="rounded-full"
+              />
+            </div>
+            <div className="sm:text-2xl text-[1.3rem] font-bold">
+              <span>{user?.name}</span>
+            </div>
+          </div>
+          {user?.role === "admin" && (
+            <div className="flex flex-col gap-1">
+              {/* <span className="flex items-center gap-2.5 text-black  sm:text-[14px] text-[12px]">
+                <Phone size={16}></Phone> {user?.phone}
+              </span> */}
+              <span className="flex items-center gap-2.5 text-black  sm:text-[14px] text-[12px] lowercase">
+                <Mail size={16}></Mail> {user?.email}
+              </span>
+              <span className="uppercase font-semibold text-blue-600 flex items-center gap-2.5 text-black  sm:text-[14px] text-[12px] lowercase">
+                <UserCog2Icon size={16}></UserCog2Icon> {user?.role}
+              </span>
+            
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
