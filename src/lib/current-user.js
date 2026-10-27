@@ -15,6 +15,9 @@ export async function CurrentUser() {
 
         return session.user;
     } catch (error) {
+        if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
+            throw error;
+        }
         console.error("Error while getting current user:", error);
         return null;
     }

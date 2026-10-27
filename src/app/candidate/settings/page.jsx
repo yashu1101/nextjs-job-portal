@@ -14,7 +14,7 @@ export default async function SettingsPage() {
 
   const user = await CurrentUser();
   if (!user) {
-    <AccessDenied></AccessDenied>;
+    return <AccessDenied></AccessDenied>;
   }
 
   return (
