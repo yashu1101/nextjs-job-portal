@@ -30,7 +30,7 @@ export default function JobForm({ job, mode = "create" }) {
   }, [state?.status]);
 
   return (
-    <div className="flex flex-col  w-full max-w-[500] px-5 bg-white ">
+    <div className="flex flex-col  w-full max-w-[500] px-5  bg-white ">
       <span className="sm:text-2xl font-semibold text-2xl text-center my-6">
         {isUpdate ? "Update Job" : "Create New Job"}
       </span>

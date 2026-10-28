@@ -28,7 +28,7 @@ export default async function CreateJob() {
 
 
   return (
-    <div className="flex w-full h-dvh items-center justify-center bg-background">
+    <div className="flex w-full h-dvh  justify-center pb-5">
       <JobForm></JobForm>
     </div>
   );

@@ -1,12 +1,9 @@
-import { auth } from "@/lib/auth";
-import { Mail, Phone, SquarePen, UserPen } from "lucide-react";
-import { headers } from "next/headers";
+import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { CandidateProfile } from "@/models/candidate.profile.model";
 import { User } from "@/models/user.model";
 import connectDB from "@/lib/db";
-import Link from "next/link";
 import { CurrentUser, RoleChecker } from "@/lib/current-user";
 import AccessDenied from "@/components/AccessDenied";
 import { dummyAvatar } from "@/util/image-provider";

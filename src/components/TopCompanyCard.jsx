@@ -17,7 +17,7 @@ export default async function TopCompanyCard() {
     <div className="flex sm:gap-5 gap-2.5 w-full max-w-225 flex-wrap  items-center justify-center">
       {companies?.map((company) => {
         return (
-          <Link href={"#"} key={company?._id}>
+          <Link href={`/jobs/company/${company?.companyName}`} key={company?._id}>
             <div className=" w-37.5 sm:w-50 border border-zinc-200 rounded-[10px] p-5 flex flex-col items-center bg-white  hover:border-black transition-all duration-300 ">
               <div
                 >

@@ -4,6 +4,7 @@ import Searchbar from "../Searchbar";
 import { Eye, Trash } from "lucide-react";
 import { date } from "@/util/date-formator";
 import AdminDeleteUserButton from "../buttons/AdminDeleteUserButton";
+import Image from "next/image";
 
 export default function RecruitersTable({ companies }) {
   console.log(companies);
@@ -39,18 +40,24 @@ export default function RecruitersTable({ companies }) {
                 </tr>
               </thead>
               <tbody>
-                {companies?.map((company, index) => {
+                {companies?.map((company) => {
                   return (
                     <tr
-                      key={index}
+                      key={company?.user?._id}
                       className="border-b border-[#80808040] text-nowrap ">
                       <td className="p-2.5 text-blue-600  ">
                         <Link href={`/recruiter/profile/${company?.user?._id}`}>
-                          {`${company?._id.slice(0, 4)}...${company?.user?._id.slice(-4)}`}
+                          {`${company?.user?._id.slice(0, 4)}...${company?.user?._id.slice(-4)}`}
                         </Link>
                       </td>
                       <td className="p-2.5 capitalize ">
-                        {company?.companyName}
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src={company?.companyLogo?.url}
+                            alt={company?.user?._id}
+                            width={500} height={500} className="w-5 h-auto rounded-[10px]"></Image>
+                          {company?.companyName}
+                        </div>
                       </td>
                       <td className="p-2.5 capitalize  ">
                         {company?.companyType}
@@ -63,7 +70,8 @@ export default function RecruitersTable({ companies }) {
                       </td>
                       <td className="p-2.5 capitalize ">
                         <span className="flex items-center gap-2.5">
-                         <AdminDeleteUserButton userId={company?.user?._id}></AdminDeleteUserButton>
+                          <AdminDeleteUserButton
+                            userId={company?.user?._id}></AdminDeleteUserButton>
                         </span>
                       </td>
                     </tr>

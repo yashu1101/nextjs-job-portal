@@ -31,7 +31,7 @@ export default async function RecruiterProfilePage({ params }) {
   }
 
   // CHECK IF ALREADY EXIST
-  const profile = await RecruiterProfile.findOne({ user: id });
+  const profile = await RecruiterProfile.findOne({ user: id }).populate('user', 'name email');
   if(!profile){
     return notFound()
   }
@@ -52,7 +52,7 @@ export default async function RecruiterProfilePage({ params }) {
               />
             </div>
             <div className="sm:text-2xl text-[1.5rem] font-bold">
-              <span>{user.name}</span>
+              <span>{profile?.user?.name}</span>
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -60,7 +60,7 @@ export default async function RecruiterProfilePage({ params }) {
               <Phone size={16}></Phone> {profile?.phone}
             </span>
             <span className="flex items-center gap-2.5 text-black sm:text-[14px] text-[12px] lowercase">
-              <Mail size={16}></Mail> {user.email}
+              <Mail size={16}></Mail> {profile?.user?.email}
             </span>
           </div>
         </div>

@@ -12,6 +12,7 @@ import { Application } from "@/models/application.model";
 import { CurrentUser } from "@/lib/current-user";
 import { joblogoPlaceholder } from "@/util/image-provider";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export default async function ViewJob({ params }) {
   const { id } = await params;
@@ -22,7 +23,9 @@ export default async function ViewJob({ params }) {
 
   const job = await Job.findById(id).populate("company").lean();
 
-  // console.log("jobDetail: ", job);
+  if (!job) {
+    return notFound();
+  }
 
   // GET CURRENT USER
 
